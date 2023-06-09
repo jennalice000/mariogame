@@ -1,5 +1,18 @@
 class Mario extends GameObject{
+    constructor(container, src, width, height, x, y, velX, velY){
+        super(container, src, width, height, x, y, velX, velY)
+        // 이 변수는 마리오의 이중점프를 막기 위한 논리값임
+        // 마리오의 발바닥이 바닥에 닿았는지 여부를 판단하는 용도
+        this.y = brickArray[i]
+        this.falled=false;
 
+        //Has a 관계 => Mario class has a Sensor.
+        this.LeftSensor=new this.LeftSensor(this.container, 2, 50, this.x-2, this.y+10, 'red');
+        this.RightSensor=new this.RightSensor(this.container, 2, 50, this.width, this.y+10, 'red');
+        this.TopSensor=new this.TopSensor(this.container, 40, 2, this.x+5, this.y-3, 'red');
+        this.BottomSensor=new this.BottomSensor(this.container, 40, 2, this.x+5, this.height, 'red');
+
+    }
     hitCheck(){
         //벽돌 수 만큼 반복하면서 마리오와 각각의 벽돌간 충돌체크 
         for(let i=0;i<brickArray.length;i++){
@@ -28,6 +41,16 @@ class Mario extends GameObject{
         this.x+=this.velX;
         this.y+=this.velY;  
         
+        // 마리오가 보유한 센서막대들에 대해서도 tick()
+        this.LeftSensor.tick(); //오버라이딩한 tick()method
+        this.LeftSensor.render();//Sensor부모의 메서드
+        this.RightSensor.tick();
+        this.RightSensor.render();
+        this.TopSensor.tick();
+        this.TopSensor.render();
+        this.BottomSensor.tick();
+        this.BottomSensor.render();
+
         this.hitCheck();
     }
 

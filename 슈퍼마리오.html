@@ -16,11 +16,15 @@
             position: relative;
         }
     </style>
-    <script src="./GameObject.js"></script>
-    <script src="./Brick.js"></script>
-    <script src="./Mario.js"></script>
+    <script src="lib.js"></script>
+    <script src="GameObject.js"></script>
+    <script src="Brick.js"></script>
+    <script src="Sensor.js"></script>
+    <script src="LeftSensor.js"></script>
+    <script src="TopSensor.js"></script>
+    <script src="BottomSensor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="../js/lib.js"></script>
+    <script src="Mario.js"></script>
     <script>
         let wrapper;
         let mario;
@@ -32,12 +36,12 @@
         function createBrick(){
             for(let i=0;i<25;i++){
                 //container, src, width, height,x,y,velX,velY
-                brickArray.push(new Brick(wrapper, "./images/brick.png",40,40,i*40, 600, 0,0));
+                brickArray.push(new Brick(wrapper, "./brick.png",40,40,i*40, 600, 0,0));
             }
         }
         
         function createMario(){
-            mario=new Mario(wrapper, "./images/mario.png",50,70, 200,10,0,5);
+            mario=new Mario(wrapper, "./mario.png",50,70, 200,10,0,5);
         }
 
         //게임에 등장하는 객체 중, 움직임이 있는 객체의
@@ -50,7 +54,11 @@
         }
         
         function jump(){
-            mario.velY=-4;
+            //마리오의 발바닥이 땅에 닿을 때만 점프허용
+            if(mario.falled){
+                mario.velY=-4;
+            }
+            mario.falled=false;
         }
 
         function moveX(n){
