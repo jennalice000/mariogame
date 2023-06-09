@@ -18,6 +18,8 @@ class Mario extends GameObject{
     //이때 개발자는 부모에게 물려받은 메서드를 자기만의
     //코드로 업그레이드할 수 있는데, 이러한 메서드 정의
     //기법을 가리켜 오버라이딩(OverRiding...)
+
+    // dlekddldldldl
     tick(){
         this.velY+=g;
         //console.log(this.velY);
